@@ -8,10 +8,12 @@ class MedicalExamsSeeder extends Seeder
     public function run()
     {
         $exams = $this->getExams();
-
+        $date = '2020-04-15 19:13:32';
         foreach ($exams as $key => $exam) {
             $data = [
-                'name' => $exam
+                'name' => $exam,
+                'created_at' => $date,
+                'updated_at' => $date,
             ];
 
             MedicalExams::insert($data);

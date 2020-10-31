@@ -23,7 +23,7 @@
             </div>
             <div class="form-group {{ $errors->has('rg') ? 'has-error' : '' }}">
                 <label for="rg">{{ trans('global.patient.fields.rg') }}</label>
-                <textarea id="rg" name="rg" class="form-control ">{{ old('rg', isset($patient) ? $patient->rg : '') }}</textarea>
+                <input type="text" id="rg" name="rg" class="form-control ">{{ old('rg', isset($patient) ? $patient->rg : '') }}</input>
                 @if($errors->has('rg'))
                     <em class="invalid-feedback">
                         {{ $errors->first('rg') }}
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group {{ $errors->has('cpf') ? 'has-error' : '' }}">
                 <label for="cpf">{{ trans('global.patient.fields.cpf') }}</label>
-                <input type="number" id="cpf" name="cpf" class="form-control" value="{{ old('cpf', isset($patient) ? $patient->cpf : '') }}">
+                <input type="text" id="cpf" name="cpf" class="form-control" value="{{ old('cpf', isset($patient) ? $patient->cpf : '') }}">
                 @if($errors->has('cpf'))
                     <em class="invalid-feedback">
                         {{ $errors->first('cpf') }}

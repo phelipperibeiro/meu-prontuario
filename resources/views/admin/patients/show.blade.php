@@ -19,7 +19,7 @@
                 </tr>
                 <tr>
                     <th>
-                        {{ trans('global.patient.fields.description') }}
+                        {{ trans('global.patient.fields.rg') }}
                     </th>
                     <td>
                         {!! $patient->rg !!}
@@ -27,7 +27,7 @@
                 </tr>
                 <tr>
                     <th>
-                        {{ trans('global.patient.fields.price') }}
+                        {{ trans('global.patient.fields.cpf') }}
                     </th>
                     <td>
                         ${{ $patient->cpf }}

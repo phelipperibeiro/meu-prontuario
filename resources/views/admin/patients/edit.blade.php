@@ -7,12 +7,12 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route("admin.patients.update", [$patients->id]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route("admin.patients.update", [$patient->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                 <label for="name">{{ trans('global.patient.fields.name') }}*</label>
-                <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($patients) ? $patients->name : '') }}">
+                <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($patient) ? $patient->name : '') }}">
                 @if($errors->has('name'))
                     <em class="invalid-feedback">
                         {{ $errors->first('name') }}
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group {{ $errors->has('rg') ? 'has-error' : '' }}">
                 <label for="rg">{{ trans('global.patient.fields.rg') }}</label>
-                <textarea id="rg" name="rg" class="form-control ">{{ old('rg', isset($patients) ? $patients->rg : '') }}</textarea>
+                <input type="text" id="rg" name="rg" class="form-control" value="{{ old('rg', isset($patient) ? $patient->rg : '') }}">
                 @if($errors->has('rg'))
                     <em class="invalid-feedback">
                         {{ $errors->first('rg') }}
@@ -36,7 +36,7 @@
             </div>
             <div class="form-group {{ $errors->has('cpf') ? 'has-error' : '' }}">
                 <label for="cpf">{{ trans('global.patient.fields.cpf') }}</label>
-                <input type="number" id="cpf" name="cpf" class="form-control" value="{{ old('cpf', isset($patients) ? $patients->cpf : '') }}" >
+                <input type="text" id="cpf" name="cpf" class="form-control" value="{{ old('cpf', isset($patient) ? $patient->cpf : '') }}" >
                 @if($errors->has('cpf'))
                     <em class="invalid-feedback">
                         {{ $errors->first('cpf') }}
