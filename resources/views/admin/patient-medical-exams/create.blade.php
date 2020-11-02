@@ -12,7 +12,7 @@
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                 <input type="hidden" name="patient_id" value="{{$patient_id}}">
                 <label for="permissions">{{ trans('global.patient-medical-exams.fields.name') }}</label>
-                <select name="name" id="name" class="form-control select2" multiple>
+                <select name="name[]" id="name" class="form-control select2" multiple>
                     @foreach($medicalExams as $id => $medicalExam)
                         <option value="{{ $medicalExam->id }}" }}>
                             {{ $medicalExam->name }}
@@ -44,7 +44,7 @@
             </div>
 
             <div class="form-group {{ $errors->has('file') ? 'has-error' : '' }}">
-                <input id="file" type="file" name="file" multiple>
+                <input id="file" type="file" name="file" required >
                 @if($errors->has('file'))
                     <em class="invalid-feedback">
                         {{ $errors->first('file') }}

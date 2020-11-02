@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Patient;
 use App\MedicalExams;
 use App\PatientMedicalExams;
+use App\PatientMedicalExamImgs;
 
 class PatientMedicalExamsController extends Controller
 {
@@ -34,9 +35,25 @@ class PatientMedicalExamsController extends Controller
     {
         //abort_unless(\Gate::allows('patient_create'), 403);
 
-        $data = ['date_medical_exam' => $request->get('date') , 'patient_id' => $request->get('patient_id'), 'medical_exams_id' => $request->get('name')];
+        $medicalExamsIds = $request->get('name');
+        $patient_id = $request->get('patient_id');
+        $file = $request->file('file');
+        $filename = $file->store("imgs/$patient_id");
 
-        PatientMedicalExams::create($data);
+        //dd([$request->file('files'), $request->all()]);
+
+        foreach ($medicalExamsIds as $medicalExamsId) {
+
+            $data = ['date_medical_exam' => $request->get('date') , 'patient_id' => $patient_id, 'medical_exams_id' => $medicalExamsId];
+
+            $patientMedicalExams = PatientMedicalExams::create($data);
+
+            $product_photo = PatientMedicalExamImgs::create([
+                'patient_medical_exams_id' => $patientMedicalExams->id,
+                'filename' => $filename
+            ]);
+
+        }
 
         return redirect()->route('admin.patients.index');
     }
