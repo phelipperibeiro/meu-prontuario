@@ -13,11 +13,14 @@ class CreateMedicalExamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('medical_exams', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('medical_exams')) {
+            Schema::create('medical_exams', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name');
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
