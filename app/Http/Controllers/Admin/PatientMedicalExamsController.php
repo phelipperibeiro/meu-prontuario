@@ -12,6 +12,7 @@ use App\PatientMedicalExamImgs;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpFoundation\Response;
 
+
 class PatientMedicalExamsController extends Controller
 {
     public function index()
@@ -37,7 +38,9 @@ class PatientMedicalExamsController extends Controller
 
     public function displayImage($filename)
     {
-        $path = storage_public('public/imgs/1/Ba0sUzVNym9lGHOtXFcAzk5ElwvHCaSIROWIItTm.jpeg' );
+        $filename = str_replace("_", "/", $filename);
+
+        $path = storage_path('app/'.$filename);
 
         if (!File::exists($path)) {
             abort(404);
@@ -45,7 +48,7 @@ class PatientMedicalExamsController extends Controller
         $file = File::get($path);
         $type = File::mimeType($path);
 
-        $response = Response::make($file, 200);
+        $response = response()->make($file, 200);
         $response->header("Content-Type", $type);
 
         return $response;
@@ -99,8 +102,10 @@ class PatientMedicalExamsController extends Controller
 
         $patientMedicalExamImg = PatientMedicalExamImgs::where('patient_medical_exams_id',$patientMedicalExamsId)->first();
 
-        $filename = str_replace('public/', '', $patientMedicalExamImg->filename);
-        //$contents =  Storage::disk('public')->get($filename);
+        //$filename = str_replace('public/', '', $patientMedicalExamImg->filename);
+        $filename = $patientMedicalExamImg->filename;
+        $filename = str_replace("/", "_", $filename);
+
         return view('admin.patient-medical-exams.show', ['filename' => $filename]);
     }
 
