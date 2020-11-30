@@ -45,6 +45,54 @@
             </tbody>
         </table>
     </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable">
+                <thead>
+                <tr>
+                    <th width="10">
+
+                    </th>
+                    <th>
+                        {{ trans('global.patient-medical-exams.fields.name') }}
+                    </th>
+                    <th>
+                        {{ trans('global.patient-medical-exams.fields.date') }}
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                @foreach($medicalExams as $key => $medicalExam)
+
+                    <tr data-entry-id="{{ $medicalExam->id }}">
+                        <td>
+
+                        </td>
+                        <td>
+                            {{ $medicalExam->name ?? '' }}
+                        </td>
+                        <td>
+                            {{ $medicalExam->date ?? '' }}
+                        </td>
+                        <td>
+                            @can('patient_show')
+                                <a class="btn btn-xs btn-primary" href="{{ route('admin.patient-medical-exams.show', ['id' => $medicalExam->patientMedicalExam]) }}">
+                                    {{ trans('global.viewExam') }}
+                                </a>
+                            @endcan
+                        </td>
+
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @endsection

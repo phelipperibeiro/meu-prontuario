@@ -15,6 +15,7 @@ class PatientMedicalExams extends Model
     ];
 
     protected $fillable = [
+        'id',
         'patient_id',
         'medical_exams_id',
         'date_medical_exam',

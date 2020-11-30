@@ -26,8 +26,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::resource('patients', 'PatientsController');
 
-    Route::delete('patient-medical-exams/destroy', 'PatientMedicalExamsController@massDestroy')->name('exams.massDestroy');
+    Route::get('/patient-medical-exams/image/{filename}', 'PatientMedicalExamsController@displayImage')->name('patient-medical-exams.displayImage');
 
+    Route::get('patient-medical-exams/{id}/show', 'PatientMedicalExamsController@show')->name('patient-medical-exams.show');
+    Route::delete('patient-medical-exams/destroy', 'PatientMedicalExamsController@massDestroy')->name('exams.massDestroy');
     Route::get('patient-medical-exams/patient/{id}/create', 'PatientMedicalExamsController@create')->name('patient-medical-exams.create');
     Route::post('patient-medical-exams/patient/{id}/store', 'PatientMedicalExamsController@store')->name('patient-medical-exams.store');
 

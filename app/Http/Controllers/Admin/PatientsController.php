@@ -7,6 +7,9 @@ use App\Http\Requests\MassDestroyPatientRequest;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Patient;
+use App\MedicalExams;
+use App\PatientMedicalExams;
+use App\PatientMedicalExamImgs;
 
 class PatientsController extends Controller
 {
@@ -55,7 +58,22 @@ class PatientsController extends Controller
     {
         abort_unless(\Gate::allows('patient_show'), 403);
 
-        return view('admin.patients.show', compact('patient'));
+        $patientMedicalExams = PatientMedicalExams::where('patient_id', $patient->id)->get();
+
+        $medicalExams = [];
+        foreach ($patientMedicalExams as $patientMedicalExam) {
+            $exams = MedicalExams::find($patientMedicalExam->medical_exams_id);
+            $date = new \DateTime($patientMedicalExam->date_medical_exam);
+            $medicalExams[] = (object) [
+                'id' => $patient->id,
+                'patientMedicalExam' => $patientMedicalExam->id,
+                'patientName' => $patient->name,
+                'name' => $exams->name,
+                'date' =>$date->format('d/m/Y'),
+            ];
+        }
+
+        return view('admin.patients.show', compact('patient', 'medicalExams'));
     }
 
     public function destroy(Patient $patient)
